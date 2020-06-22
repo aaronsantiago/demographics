@@ -102,7 +102,7 @@ function onWindowResize() {
 let prevTime = Date.now();
 function render() {
   
-  if (followCameraTransform) {
+  if (mesh && followCameraTransform) {
     mesh.position.set(0, 0, -0.4).applyMatrix4(controller.matrixWorld);
     mesh.rotation.copy(controller.rotation); 
   }
