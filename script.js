@@ -53,12 +53,9 @@ function init() {
   var texture, material;
 
   texture = THREE.ImageUtils.loadTexture( "Youth.png" );
-  texture.wrapT = THREE.RepeatWrapping;  // This doesn't seem to work;
   material = new THREE.MeshLambertMaterial({ map : texture });
-  mesh = new THREE.Mesh(new THREE.PlaneGeometry(400, 3500), material);
+  mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
   mesh.doubleSided = true;
-  mesh.position.x = 100;
-  mesh.rotation.z = 2;  // Not sure what this number represents.
   scene.add(mesh);
   // loader.load(
   //   "https://cdn.glitch.com/17a5e9f3-98e4-4ea3-8466-a4d271f324f2%2FHorse.glb?v=1592325342024",
