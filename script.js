@@ -50,12 +50,16 @@ function init() {
 
   
   let loader = new GLTFLoader();
-  var texture, material;
+  let texture, material;
 
   texture = THREE.ImageUtils.loadTexture( "Youth.png" );
   material = new THREE.MeshLambertMaterial({ map : texture });
-  mesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
-  mesh.doubleSided = true;
+  for (let i = 0; i < 5; i++) {
+    let plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+    plane.position.z = i/10;
+    plane.doubleSided = true;
+    mesh.add(plane);
+  }
   scene.add(mesh);
   // loader.load(
   //   "https://cdn.glitch.com/17a5e9f3-98e4-4ea3-8466-a4d271f324f2%2FHorse.glb?v=1592325342024",
@@ -101,7 +105,7 @@ function render() {
   
   if (mesh && followCameraTransform) {
     mesh.position.set(0, 0, -0.4).applyMatrix4(controller.matrixWorld);
-    mesh.rotation.copy(controller.rotation); 
+    mesh.rotation.y = (controller.rotation.y); 
   }
 
   let time = Date.now();
