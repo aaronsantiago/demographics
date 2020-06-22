@@ -55,7 +55,7 @@ function init() {
   texture = THREE.ImageUtils.loadTexture( "Youth.png" );
   material = new THREE.MeshLambertMaterial({ map : texture, transparent: true});
   for (let i = 0; i < 5; i++) {
-    let plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+    let plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material);
     plane.position.z = i/10;
     plane.doubleSided = true;
     mesh.add(plane);
@@ -81,7 +81,8 @@ function init() {
 
   // Add the controller that will spawn models
   function onSelectStart() {
-    followCameraTransform = false;
+    mesh.position.set(controller.position.x, controller.position.y, controller.position.z);
+    mesh.rotation.y = controller.rotation.y; 
   }
 
   controller = renderer.xr.getController(0);
@@ -102,11 +103,6 @@ function onWindowResize() {
 
 let prevTime = Date.now();
 function render() {
-  
-  if (mesh && followCameraTransform) {
-    mesh.position.set(controller.position.x, controller.position.y, controller.position.z);
-    mesh.rotation.y = (controller.rotation.y); 
-  }
 
   let time = Date.now();
   for (let mixer of gltfMixers) {
