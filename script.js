@@ -53,7 +53,7 @@ function init() {
   let texture, material;
   mesh = new THREE.Object3D();
   texture = THREE.ImageUtils.loadTexture( "Youth.png" );
-  material = new THREE.MeshLambertMaterial({ map : texture });
+  material = new THREE.MeshLambertMaterial({ map : texture, transparent: true});
   for (let i = 0; i < 5; i++) {
     let plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
     plane.position.z = i/10;
@@ -104,7 +104,7 @@ let prevTime = Date.now();
 function render() {
   
   if (mesh && followCameraTransform) {
-    mesh.position.set(0, 0, -0.4).applyMatrix4(controller.matrixWorld);
+    mesh.position.set(controller.position.x, controller.position.y, controller.position.z);
     mesh.rotation.y = (controller.rotation.y); 
   }
 
