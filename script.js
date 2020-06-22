@@ -51,7 +51,7 @@ function init() {
   
   let loader = new GLTFLoader();
   let texture, material;
-
+  mesh = new THREE.Object3D();
   texture = THREE.ImageUtils.loadTexture( "Youth.png" );
   material = new THREE.MeshLambertMaterial({ map : texture });
   for (let i = 0; i < 5; i++) {
