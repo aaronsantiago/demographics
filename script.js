@@ -7,7 +7,7 @@ let camera, scene, renderer;
 let controller;
 let gltfMixers = [];
 
-let followCameraTransform = false;
+let followCameraTransform = true;
 
 init();
 
@@ -96,7 +96,7 @@ function render() {
     mesh.position.set(0, 0, -0.4).applyMatrix4(controller.matrixWorld);
     mesh.rotation.copy(controller.rotation); 
   }
-  
+
   let time = Date.now();
   for (let mixer of gltfMixers) {
 
