@@ -8,6 +8,7 @@ let controller;
 let gltfMixers = [];
 
 let followCameraTransform = true;
+let mesh = null;
 
 init();
 
@@ -49,7 +50,6 @@ function init() {
 
   
   let loader = new GLTFLoader();
-  let mesh = null;
   var texture, material;
 
   texture = THREE.ImageUtils.loadTexture( "Youth.png" );
