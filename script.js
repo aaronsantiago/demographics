@@ -50,23 +50,33 @@ function init() {
   
   let loader = new GLTFLoader();
   let mesh = null;
-  loader.load(
-    "https://cdn.glitch.com/17a5e9f3-98e4-4ea3-8466-a4d271f324f2%2FHorse.glb?v=1592325342024",
-    function(gltf) {
-      let mixer;
-      mesh = gltf.scene.children[0];
-      mesh.scale.set(.001, .001, .001);
-      scene.add(mesh);
+  var texture, material;
 
-      mixer = new THREE.AnimationMixer(mesh);
+  texture = THREE.ImageUtils.loadTexture( "Youth.png" );
+  texture.wrapT = THREE.RepeatWrapping;  // This doesn't seem to work;
+  material = new THREE.MeshLambertMaterial({ map : texture });
+  mesh = new THREE.Mesh(new THREE.PlaneGeometry(400, 3500), material);
+  mesh.doubleSided = true;
+  mesh.position.x = 100;
+  mesh.rotation.z = 2;  // Not sure what this number represents.
+  scene.add(mesh);
+  // loader.load(
+  //   "https://cdn.glitch.com/17a5e9f3-98e4-4ea3-8466-a4d271f324f2%2FHorse.glb?v=1592325342024",
+  //   function(gltf) {
+  //     let mixer;
+  //     mesh = gltf.scene.children[0];
+  //     mesh.scale.set(.001, .001, .001);
+  //     scene.add(mesh);
 
-      mixer
-        .clipAction(gltf.animations[0])
-        .setDuration(1)
-        .play();
-      gltfMixers.push(mixer);
-    }
-  );
+  //     mixer = new THREE.AnimationMixer(mesh);
+
+  //     mixer
+  //       .clipAction(gltf.animations[0])
+  //       .setDuration(1)
+  //       .play();
+  //     gltfMixers.push(mixer);
+  //   }
+  // );
 
   // Add the controller that will spawn models
   function onSelectStart() {
