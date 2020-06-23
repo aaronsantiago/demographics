@@ -52,14 +52,17 @@ function init() {
   let loader = new GLTFLoader();
   let texture, material;
   mesh = new THREE.Object3D();
-  texture = THREE.ImageUtils.loadTexture( "Youth.png" );
-  material = new THREE.MeshLambertMaterial({ map : texture, transparent: true});
-  for (let i = 0; i < 5; i++) {
-    let plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material);
-    plane.position.z = i/10;
-    plane.doubleSided = true;
-    mesh.add(plane);
-  }
+  texture1 = THREE.ImageUtils.loadTexture( "nyc_poverty_1.png" );
+  texture2 = THREE.ImageUtils.loadTexture( "nyc_poverty_2.png" );
+  material1 = new THREE.MeshLambertMaterial({ map : texture1, transparent: true});
+  material2 = new THREE.MeshLambertMaterial({ map : texture2, transparent: true});
+  let plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material);
+  plane.doubleSided = true;
+  mesh.add(plane);
+  plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material);
+  plane.position.z = 1/10;
+  plane.doubleSided = true;
+  mesh.add(plane);
   scene.add(mesh);
   // loader.load(
   //   "https://cdn.glitch.com/17a5e9f3-98e4-4ea3-8466-a4d271f324f2%2FHorse.glb?v=1592325342024",
