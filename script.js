@@ -67,18 +67,9 @@ function init() {
   loader.load(
     "assets/test2.glb",
     function(gltf) {
-      let mixer;
       mesh = gltf.scene.children[0];
-      mesh.scale.set(.001, .001, .001);
+      // mesh.scale.set(.001, .001, .001);
       scene.add(mesh);
-
-      mixer = new THREE.AnimationMixer(mesh);
-
-      mixer
-        .clipAction(gltf.animations[0])
-        .setDuration(1)
-        .play();
-      gltfMixers.push(mixer);
     }
   );
 
