@@ -51,36 +51,36 @@ function init() {
 
   
   let loader = new GLTFLoader();
-  mesh = new THREE.Object3D();
-  let texture1 = new THREE.TextureLoader().load( "assets/rainbow.png" );
-  let texture2 = new THREE.TextureLoader().load( "assets/nyc_poverty_2.tif" );
-  let material1 = new THREE.MeshBasicMaterial({ map : texture1, transparent: true});
-  let material2 = new THREE.MeshBasicMaterial({ map : texture2, transparent: true});
-  let plane = new THREE.Mesh(new THREE.PlaneGeometry(600*.0004, 847*.0004), material1);
-  plane.doubleSided = true;
-  mesh.add(plane);
-  plane = new THREE.Mesh(new THREE.PlaneGeometry(1546*.0004, 294*.0004), material2);
-  plane.position.z = 1/10;
-  plane.doubleSided = true;
-  mesh.add(plane);
-  scene.add(mesh);
-  // loader.load(
-  //   "https://cdn.glitch.com/17a5e9f3-98e4-4ea3-8466-a4d271f324f2%2FHorse.glb?v=1592325342024",
-  //   function(gltf) {
-  //     let mixer;
-  //     mesh = gltf.scene.children[0];
-  //     mesh.scale.set(.001, .001, .001);
-  //     scene.add(mesh);
+  // mesh = new THREE.Object3D();
+  // let texture1 = new THREE.TextureLoader().load( "assets/rainbow.png" );
+  // let texture2 = new THREE.TextureLoader().load( "assets/nyc_poverty_2.tif" );
+  // let material1 = new THREE.MeshBasicMaterial({ map : texture1, transparent: true});
+  // let material2 = new THREE.MeshBasicMaterial({ map : texture2, transparent: true});
+  // let plane = new THREE.Mesh(new THREE.PlaneGeometry(600*.0004, 847*.0004), material1);
+  // plane.doubleSided = true;
+  // mesh.add(plane);
+  // plane = new THREE.Mesh(new THREE.PlaneGeometry(1546*.0004, 294*.0004), material2);
+  // plane.position.z = 1/10;
+  // plane.doubleSided = true;
+  // mesh.add(plane);
+  // scene.add(mesh);
+  loader.load(
+    "assets/test2.glb",
+    function(gltf) {
+      let mixer;
+      mesh = gltf.scene.children[0];
+      mesh.scale.set(.001, .001, .001);
+      scene.add(mesh);
 
-  //     mixer = new THREE.AnimationMixer(mesh);
+      mixer = new THREE.AnimationMixer(mesh);
 
-  //     mixer
-  //       .clipAction(gltf.animations[0])
-  //       .setDuration(1)
-  //       .play();
-  //     gltfMixers.push(mixer);
-  //   }
-  // );
+      mixer
+        .clipAction(gltf.animations[0])
+        .setDuration(1)
+        .play();
+      gltfMixers.push(mixer);
+    }
+  );
 
   // Add the controller that will spawn models
   function onSelectStart() {
