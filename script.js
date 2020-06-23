@@ -50,12 +50,11 @@ function init() {
 
   
   let loader = new GLTFLoader();
-  let material;
   mesh = new THREE.Object3D();
   let texture1 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_1.png" );
   let texture2 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_2.png" );
-  let material1 = new THREE.SpriteMaterial({ map : texture1, transparent: true});
-  let material2 = new THREE.SpriteMaterial({ map : texture2, transparent: true});
+  let material1 = new THREE.MeshLambertMaterial({ map : texture1, transparent: true});
+  let material2 = new THREE.MeshLambertMaterial({ map : texture2, transparent: true});
   let plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material1);
   plane.doubleSided = true;
   mesh.add(plane);
