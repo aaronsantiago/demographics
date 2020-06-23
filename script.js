@@ -55,10 +55,10 @@ function init() {
   let texture2 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_2.png" );
   let material1 = new THREE.MeshLambertMaterial({ map : texture1, transparent: true});
   let material2 = new THREE.MeshLambertMaterial({ map : texture2, transparent: true});
-  let plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material1);
+  let plane = new THREE.Mesh(new THREE.PlaneGeometry(1546*.0004, 294*.0004), material1);
   plane.doubleSided = true;
   mesh.add(plane);
-  plane = new THREE.Mesh(new THREE.PlaneGeometry(.7, .46), material2);
+  plane = new THREE.Mesh(new THREE.PlaneGeometry(1546*.0004, 294*.0004), material2);
   plane.position.z = 1/10;
   plane.doubleSided = true;
   mesh.add(plane);
