@@ -67,7 +67,12 @@ function init() {
   loader.load(
     "assets/test2.glb",
     function(gltf) {
-      mesh = gltf.scene.children[0];
+      mesh = new THREE.Object3D();
+
+      for (let o of gltf.scene.children) {
+        mesh.add(o);
+      }
+      console.log
       // mesh.scale.set(.001, .001, .001);
       scene.add(mesh);
     }
