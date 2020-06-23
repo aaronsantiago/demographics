@@ -1,6 +1,7 @@
 import * as THREE from "https://cdn.rawgit.com/mrdoob/three.js/r117/build/three.module.js";
 import { ARButton } from "https://cdn.rawgit.com/mrdoob/three.js/r117/examples/jsm/webxr/ARButton.js";
 import { GLTFLoader } from "https://codepen.io/ollywoggy/pen/VwePmGX.js";
+import { BasisTextureLoader } from 'https://cdn.rawgit.com/mrdoob/three.js/r117/examples/jsm/loaders/BasisTextureLoader.js';
 
 let container;
 let camera, scene, renderer;
@@ -53,8 +54,8 @@ function init() {
   mesh = new THREE.Object3D();
   let texture1 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_1.png" );
   let texture2 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_2.png" );
-  let material1 = new THREE.MeshLambertMaterial({ map : texture1, transparent: true});
-  let material2 = new THREE.MeshLambertMaterial({ map : texture2, transparent: true});
+  let material1 = new THREE.MeshBasicMaterial({ map : texture1, transparent: true});
+  let material2 = new THREE.MeshBasicMaterial({ map : texture2, transparent: true});
   let plane = new THREE.Mesh(new THREE.PlaneGeometry(1546*.0004, 294*.0004), material1);
   plane.doubleSided = true;
   mesh.add(plane);
