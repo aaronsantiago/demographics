@@ -52,8 +52,8 @@ function init() {
   
   let loader = new GLTFLoader();
   mesh = new THREE.Object3D();
-  let texture1 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_1.png" );
-  let texture2 = THREE.ImageUtils.loadTexture( "assets/nyc_poverty_2.png" );
+  let texture1 = new THREE.TextureLoader().load( "assets/nyc_poverty_1.png" );
+  let texture2 = new THREE.TextureLoader().load( "assets/nyc_poverty_2.png" );
   let material1 = new THREE.MeshBasicMaterial({ map : texture1, transparent: true});
   let material2 = new THREE.MeshBasicMaterial({ map : texture2, transparent: true});
   let plane = new THREE.Mesh(new THREE.PlaneGeometry(1546*.0004, 294*.0004), material1);
