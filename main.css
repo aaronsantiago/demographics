@@ -1,94 +1,37 @@
+/* CSS files add styling rules to your content */
+
 body {
-	margin: 0;
-	background-color: #000;
-	color: #fff;
-	font-family: Monospace;
-	font-size: 13px;
-	line-height: 24px;
-	overscroll-behavior: none;
+	font-family: helvetica, arial, sans-serif;
+	margin: 2em;
 }
 
-a {
-	color: #ff0;
-	text-decoration: none;
+h1 {
+	/*  font-style: italic;
+	  color: #373fff;
+	*/
+	font-size: 1.35em;
 }
 
-a:hover {
-	text-decoration: underline;
-}
-
-
-
-/********* unexplainable weird stuff (try not to mess with this) ***/
-canvas {
-	display: block;
-}
-
-a, button, input, select {
-	pointer-events: auto;
-}
-
-
-
-/**************************** AR Button CSS ************************/
-button {
-	cursor: pointer;
-	text-transform: uppercase;
-}
-
-#info {
+div#text {
 	position: absolute;
-	top: 0px;
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	text-align: center;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	z-index: 1;
+	left: 6px;
+	top: 6px;
+	padding: 6px;
+	/*
+	text-shadow: 0 0 5px white;
+	*/
+	max-width: 350px;
+	background-color: rgba(255, 255, 255, 0.7)
 }
 
-.dg.ac {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	z-index: 2 !important;
+#buttonContainer {
+    z-index: 1000;
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
 }
-
-#overlay {
-	position: absolute;
-	z-index: 2;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height:100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 1;
-	background-color: #000000;
-	color: #ffffff;
+#buttonContainer button {
+  height: 15vh;
+  width: 30vw;
+  font-size: 3vw;
 }
-
-#overlay > div {
-	text-align: center;
-}
-
-#overlay > div > button {
-	height: 20px;
-	background: transparent;
-	color: #ffffff;
-	outline: 1px solid #ffffff;
-	border: 0px;
-	cursor: pointer;
-}
-
-#overlay > div > p {
-	color: #777777;
-	font-size: 12px;
-}
-

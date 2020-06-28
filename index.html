@@ -1,24 +1,207 @@
-<!DOCTYPE html><html lang="en"><head>
-		<title>Horsin' Around</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link type="text/css" rel="stylesheet" href="main.css">
-    <link rel="shortcut icon" sizes="192x192" href="https://cdn.glitch.com/19df90bf-317b-42e7-8da8-0193aa6603a9%2Fkitty.png?v=1592430168480" type="image/x-icon">
-	</head>
-	<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>XR Street</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<div id="info">
-			<h1>horse time</h1>
-      <p>
-        tap ur screen to make horse
-      </p>
-		</div>
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="./main.css">
 
-		<script type="module" src="script.js"></script>
-    
-    <script type="module">
-      import * as THREE from "https://cdn.rawgit.com/mrdoob/three.js/r117/build/three.module.js";
-      import { ARButton } from "https://cdn.rawgit.com/mrdoob/three.js/r117/examples/jsm/webxr/ARButton.js";
+    <script>
+        // WebXR requires HTTPS, so the site doesn't work if someone manually enters
+        // the URL and ends up using HTTP. To work around this, force redirect from
+        // http to https for non-localhost addresses.
+        if (window.location.protocol == "http:" &&
+                window.location.hostname != "localhost" &&
+                window.location.hostname != "127.0.0.1" &&
+                window.location.hostname != "[::1]") {
+            //window.location = window.location.href.replace('http:', 'https:');
+        }
     </script>
-	
-</body></html>
+
+    <!-- import the webpage's javascript files -->
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@e416f25/dist/aframe-master.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script
+            src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+
+  <script src="https://ghcdn.rawgit.org/chenzlabs/aframe-ar/fb69413/dist/aframe-ar.min.js"></script>
+  
+    <script src="./script.js"></script>
+  
+  <script>
+
+    // AFRAME no longer sends intersection event every time intersection changes position;
+    // this component is modified from docs to move a different entity than the one hit.
+    AFRAME.registerComponent('raycaster-move', {
+        schema: {
+            target: {type: 'selector'}
+        },
+        init: function () {
+            // Use events to figure out what raycaster is listening so we don't have to
+            // hardcode the raycaster.
+            this.el.addEventListener('raycaster-intersected', evt => {
+                this.raycaster = evt.detail.el;
+            });
+            this.el.addEventListener('raycaster-intersected-cleared', evt => {
+                this.raycaster = null;
+            });
+        },
+        update: function (oldData) {
+            //
+        },
+        tick: function () {
+            if (!this.raycaster) { return; }  // Not intersecting.
+
+            let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
+            if (!intersection) { return; }
+            //console.log(intersection.point);
+            this.data.target.setAttribute("position", intersection.point);
+        }
+    });
+
+    window.addEventListener('click', function () {
+      // Put the logo where the mark is.
+      let position = document.querySelector('#mark').getAttribute('position');      
+      document.getElementById('dino').setAttribute('position', position);
+      document.getElementById('light').setAttribute('position', {
+        x: (position.x - 2),
+        y: (position.y + 4),
+        z: (position.z + 2)
+      });
+    });
+
+  </script>
+</head>
+<body>
+  <div id="buttonContainer">
+    <button onclick="enableElementSet('all')">
+      all
+    </button>
+    <button onclick="enableElementSet('ethnicity')">
+      people of color
+    </button>
+    <button onclick="enableElementSet('immigrants')">
+      immigrants
+    </button>
+  </div>
+<a-scene ar="worldSensing:true" raycaster-move="target:#mark">
+    <a-assets>
+        <a-asset-item id="reticle"
+                      src="https://cdn.glitch.com/4be0fb1b-d714-4a6c-8cb4-a80f530ccd2e%2Freticle.glb?v=1584790912426"
+                      response-type="arraybuffer"></a-asset-item>
+    </a-assets>
+  
+  <!-- Use AR raycaster, and set raycaster to ignore all A-Frame objects like logos. -->
+  <a-entity ar-raycaster raycaster="objects:none"></a-entity>
+
+    <a-camera position="0 1.2 0"></a-camera>
+
+    <!-- Environment for 2D and VR viewing. It's auto-hidden in AR mode. -->
+    <a-entity environment="preset: default; lighting: none; shadow: none; lightPosition: 0 10 0"
+              hide-in-ar-mode></a-entity>
+
+    <a-entity id="dino" position="0 0 -1" scale=".34 .34 .34">
+    <!-- horses -->
+      <a-plane id="all" src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-1.png" position="0 .3 0" rotation="0 .1 .1" material="transparent: true"
+        scale="3 .6 1">
+      <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-2.png" position="0 0 -.35" material="transparent: true">
+        <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-3.png" position="0 0 -.35" material="transparent: true">
+          <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-4.png" position="0 0 -.35" material="transparent: true">
+            <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-5.png" position="0 0 -.35" material="transparent: true">
+              <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-6.png" position="0 0 -.35" material="transparent: true">
+              </a-plane>
+            </a-plane>
+          </a-plane>
+        </a-plane>
+      </a-plane>
+    </a-plane>
+      <a-plane id="ethnicity" src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-1-etnicity.png" position="0 .3 0" rotation="0 .1 .1" material="transparent: true"
+        scale="3 .6 1" visible="false">
+      <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-2-etnicity.png" position="0 0 -.35" material="transparent: true">
+        <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-3-etnicity.png" position="0 0 -.35" material="transparent: true">
+          <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-4-etnicity.png" position="0 0 -.35" material="transparent: true">
+            <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-5-etnicity.png" position="0 0 -.35" material="transparent: true">
+              <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-6-etnicity.png" position="0 0 -.35" material="transparent: true">
+              </a-plane>
+            </a-plane>
+          </a-plane>
+        </a-plane>
+      </a-plane>
+    </a-plane>
+      <a-plane id="immigrants" src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-1-immigrants.png" position="0 .3 0" rotation="0 .1 .1" material="transparent: true"
+        scale="3 .6 1" visible="false">
+      <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-2-immigrants.png" position="0 0 -.35" material="transparent: true">
+        <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-3-immigrants.png" position="0 0 -.35" material="transparent: true">
+          <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-4-immigrants.png" position="0 0 -.35" material="transparent: true">
+            <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-5-immigrants.png" position="0 0 -.35" material="transparent: true">
+              <a-plane src="https://raw.githubusercontent.com/aaronsantiago/demographics/master/assets/nyc-6-immigrants.png" position="0 0 -.35" material="transparent: true">
+              </a-plane>
+            </a-plane>
+          </a-plane>
+        </a-plane>
+      </a-plane>
+    </a-plane>
+        <!-- This shadow-receiving plane is only visible in AR mode.-->
+        <a-plane height="200" width="200" rotation="-90 0 0"
+                 shadow="receive: true"
+                 ar-shadows="opacity: 0.3"
+                 visible="false"></a-plane>
+
+    </a-entity>
+
+    <a-entity light="type: ambient; intensity: 1;
+              color: #f0fbff;"></a-entity>
+    <a-light type="directional"
+             light="castShadow: true;
+              color: #f0fbff;
+                      shadowMapHeight: 1024;
+                      shadowMapWidth: 1024;
+                      shadowCameraLeft: -20;
+                      shadowCameraRight: 20;
+                      shadowCameraBottom: -20;
+                      shadowCameraTop: 20;"
+             id="light"
+       intensity="1"
+             position="4 10 2">
+    </a-light>
+
+    <a-entity id="mark" gltf-model="#reticle" scale="0.8 0.8 0.8"></a-entity>
+</a-scene>
+
+<script>
+  let els = ["all", "immigrants", "ethnicity"];
+  let currentId = 0;
+  function enableElementSet(enableSetId) {
+    for (let elName of els) {
+      document.getElementById(elName).setAttribute('visible', elName == enableSetId);
+    }
+  }
+  
+  window.addEventListener('touchstart', function () {
+    enableElementSet(els[currentId++]);
+    currentId = currentId%els.length;
+    
+    let position = document.querySelector('#mark').getAttribute('position');
+
+    document.getElementById('dino').setAttribute('position', position);
+    document.getElementById('light').setAttribute('position', {
+      x: (position.x - 2),
+      y: (position.y + 4),
+      z: (position.z + 2)
+    });
+  });
+
+  // TODO: remove the need for this rather ugly hack for WebXR Viewer
+  setTimeout(function() {
+    var arscene = document.querySelector("[ar]");
+    if (arscene.components.ar.getSource().name == 'mozilla-xr-ar') {
+      arscene.addState('ar-mode');
+      arscene.emit('enter-vr', {target: arscene});
+    }
+  }, 500);
+</script>
+</body>
+</html>

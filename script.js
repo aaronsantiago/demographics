@@ -72,8 +72,8 @@ function init() {
       for (let o of gltf.scene.children) {
         mesh.add(o);
       }
-      console.log
       // mesh.scale.set(.001, .001, .001);
+      mesh.position.z = -.1;
       scene.add(mesh);
     }
   );
